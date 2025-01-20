@@ -8,6 +8,30 @@ on:
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Scan for security vulnerabilities in Ruby dependencies
+        run: bin/brakeman --no-pager
+
+  rspec-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
 
     steps:
       - name: Checkout code
@@ -19,8 +43,22 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Precompile assets
+        env:
+          RAILS_ENV: test
+        run: bundle exec rails assets:precompile
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+        run: bundle exec rspec spec
 
   lint:
     runs-on: ubuntu-latest
@@ -36,4 +74,3 @@ jobs:
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
-

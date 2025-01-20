@@ -6,5 +6,7 @@
 - Enable pgcrypto and add UUID_v7 support
 - Add default version
 - Plan model and tests
+- Customer model and tests
+- CI adjustments
 
 ## Version [0.1.0.beta] - 2025-01-20
