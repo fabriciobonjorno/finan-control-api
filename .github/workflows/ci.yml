@@ -46,11 +46,6 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Precompile assets
-        env:
-          RAILS_ENV: test
-        run: bundle exec rails assets:precompile
-
       - name: Run RuboCop
         run: bundle exec rubocop
 
