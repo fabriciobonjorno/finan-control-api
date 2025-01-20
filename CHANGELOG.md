@@ -1,0 +1,9 @@
+# Changelog
+
+### Feature
+- Initial Commit
+- Config Rspec for tests
+- Enable pgcrypto and add UUID_v7 support
+- Add default version
+
+## Version [0.1.0.beta] - 2025-01-20
