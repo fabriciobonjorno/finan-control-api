@@ -14,5 +14,6 @@
 
 ### Feature
 - User model and tests
+- Add dry config
 
 ## Version [0.1.0.beta] - 2025-01-21
