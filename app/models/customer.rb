@@ -9,6 +9,7 @@ class Customer < ApplicationRecord
 
   belongs_to :plan
   has_many :companies, dependent: :restrict_with_error
+  has_many :users, dependent: :restrict_with_error
 
   private
 

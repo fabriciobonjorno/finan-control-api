@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_20_235944) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_003215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -86,6 +86,66 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_235944) do
     t.index ["status"], name: "index_plans_on_status"
   end
 
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.datetime "deleted_at"
+    t.datetime "confirmation_sent_at"
+    t.string "confirmation_token"
+    t.boolean "confirmed", default: false
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.datetime "password_changed_at"
+    t.integer "login_failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
+    t.boolean "locked", default: false
+    t.integer "partner_type", default: 0
+    t.string "mother_name"
+    t.date "birth_date"
+    t.string "document"
+    t.integer "token_failed_attempts", default: 0
+    t.integer "transaction_failed_attempts", default: 0
+    t.string "sms_hash"
+    t.string "email_hash"
+    t.string "transaction_hash"
+    t.datetime "token_sent_at"
+    t.boolean "otp_required", default: false, null: false
+    t.string "otp_secret"
+    t.uuid "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["birth_date"], name: "index_users_on_birth_date"
+    t.index ["confirmation_sent_at"], name: "index_users_on_confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["confirmed"], name: "index_users_on_confirmed"
+    t.index ["customer_id"], name: "index_users_on_customer_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["document"], name: "index_users_on_document", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email_hash"], name: "index_users_on_email_hash"
+    t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["last_name"], name: "index_users_on_last_name"
+    t.index ["locked"], name: "index_users_on_locked"
+    t.index ["locked_at"], name: "index_users_on_locked_at"
+    t.index ["login_failed_attempts"], name: "index_users_on_login_failed_attempts"
+    t.index ["mother_name"], name: "index_users_on_mother_name"
+    t.index ["otp_required"], name: "index_users_on_otp_required"
+    t.index ["otp_secret"], name: "index_users_on_otp_secret"
+    t.index ["partner_type"], name: "index_users_on_partner_type"
+    t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
+    t.index ["password_digest"], name: "index_users_on_password_digest"
+    t.index ["reset_password_sent_at"], name: "index_users_on_reset_password_sent_at"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sms_hash"], name: "index_users_on_sms_hash"
+    t.index ["token_failed_attempts"], name: "index_users_on_token_failed_attempts"
+    t.index ["token_sent_at"], name: "index_users_on_token_sent_at"
+    t.index ["transaction_failed_attempts"], name: "index_users_on_transaction_failed_attempts"
+    t.index ["transaction_hash"], name: "index_users_on_transaction_hash"
+  end
+
   add_foreign_key "companies", "customers"
   add_foreign_key "customers", "plans"
+  add_foreign_key "users", "customers"
 end

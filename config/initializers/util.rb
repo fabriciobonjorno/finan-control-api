@@ -12,4 +12,8 @@ module Util
       end
     names_capitalizes.join(" ")
   end
+
+  def self.password_regex(password)
+    password =~ /\A(?=.*\d)(?=.*[A-Z])(?=.*\W)[^ ]{8,}\z/
+  end
 end
