@@ -15,5 +15,6 @@
 ### Feature
 - User model and tests
 - Add dry config
+- Get document (controller, contract, use_case and presenter)
 
 ## Version [0.1.0.beta] - 2025-01-21

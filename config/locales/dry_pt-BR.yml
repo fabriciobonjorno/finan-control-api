@@ -1,0 +1,7 @@
+pt-BR:
+  dry_validation:
+    errors:
+      rules:
+        document:
+          key?: 'Documento é obrigatório'
+          filled?: 'Documento não pode ser vazio'

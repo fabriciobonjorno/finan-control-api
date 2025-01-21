@@ -16,4 +16,12 @@ module Util
   def self.password_regex(password)
     password =~ /\A(?=.*\d)(?=.*[A-Z])(?=.*\W)[^ ]{8,}\z/
   end
+
+  def self.company_data(document)
+    url = "https://publica.cnpj.ws/cnpj/#{document}"
+    HTTParty.get(url)
+  rescue StandardError => e
+    Rails.logger.error("Erro ao buscar dados da empresa: #{e.message}")
+    nil
+  end
 end

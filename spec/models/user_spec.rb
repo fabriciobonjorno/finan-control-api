@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     it 'validates email format' do
       user = build(:user, email: 'invalid_email')
       expect(user).not_to be_valid
-      expect(user.errors[:email]).to include('is invalid')
+      expect(user.errors[:email]).to include('é inválido')
     end
 
     it 'validates password format' do
