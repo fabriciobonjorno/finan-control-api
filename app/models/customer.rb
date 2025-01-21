@@ -8,6 +8,7 @@ class Customer < ApplicationRecord
   validates :terms_accepted, presence: { message: "Para continuar, você precisa concordar com os termos" }
 
   belongs_to :plan
+  has_many :companies, dependent: :restrict_with_error
 
   private
 

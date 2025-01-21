@@ -7,6 +7,7 @@ RSpec.describe Customer, type: :model do
 
   describe "associations" do
     it { should belong_to(:plan) }
+    it { should have_many(:companies).dependent(:restrict_with_error) }
   end
 
   describe "validations" do

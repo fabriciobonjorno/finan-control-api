@@ -8,5 +8,6 @@
 - Plan model and tests
 - Customer model and tests
 - CI adjustments
+- Company model and tests
 
 ## Version [0.1.0.beta] - 2025-01-20

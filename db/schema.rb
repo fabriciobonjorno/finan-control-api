@@ -10,10 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_20_223932) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_20_235944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "document", default: "", null: false
+    t.string "legal_name", default: "", null: false
+    t.string "trade_name", default: "", null: false
+    t.date "founding_date"
+    t.string "email", default: ""
+    t.integer "business_type", default: 0
+    t.string "main_activity", default: ""
+    t.string "website", default: ""
+    t.datetime "deleted_at"
+    t.string "sms_hash", default: ""
+    t.string "email_hash", default: ""
+    t.datetime "token_sent_at"
+    t.integer "token_failed_attempts", default: 0
+    t.uuid "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_type"], name: "index_companies_on_business_type"
+    t.index ["customer_id"], name: "index_companies_on_customer_id"
+    t.index ["deleted_at"], name: "index_companies_on_deleted_at"
+    t.index ["document"], name: "index_companies_on_document", unique: true
+    t.index ["email"], name: "index_companies_on_email"
+    t.index ["email_hash"], name: "index_companies_on_email_hash"
+    t.index ["founding_date"], name: "index_companies_on_founding_date"
+    t.index ["legal_name"], name: "index_companies_on_legal_name"
+    t.index ["main_activity"], name: "index_companies_on_main_activity"
+    t.index ["sms_hash"], name: "index_companies_on_sms_hash"
+    t.index ["token_failed_attempts"], name: "index_companies_on_token_failed_attempts"
+    t.index ["token_sent_at"], name: "index_companies_on_token_sent_at"
+    t.index ["trade_name"], name: "index_companies_on_trade_name"
+    t.index ["website"], name: "index_companies_on_website"
+  end
 
   create_table "customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -53,5 +86,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_223932) do
     t.index ["status"], name: "index_plans_on_status"
   end
 
+  add_foreign_key "companies", "customers"
   add_foreign_key "customers", "plans"
 end
