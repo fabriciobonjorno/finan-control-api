@@ -3,10 +3,11 @@
 module Api
   module V1
     module AuthServices
-      module GetDocument
+      module Register
         class UseCase < MainService
           step :validate_params
-          step :find_document
+          step :check_document
+          step :check_email
           step :output
 
           def validate_params(params)
@@ -16,33 +17,42 @@ module Api
             Failure(format_errors(validation.errors.to_h))
           end
 
-          def find_document(params)
+          def check_document(params)
             document = CNPJ.new(params[:document]).stripped
             response = fetch_company_data(document)
 
-            return Failure(I18n.t("api.auth.company_error_found")) if response.blank?
+            return Failure(I18n.t("api.auth.company_not_found")) if response.blank?
 
             status = response.dig("estabelecimento", "situacao_cadastral")
-            company_status = response["status"]
-
-            return Failure(I18n.t("api.auth.company_not_found")) if not_found?(company_status) && status.nil?
             return Failure(I18n.t("api.auth.company_status", status: status)) unless status == "Ativa"
 
             Success(response)
+          end
+
+          def check_email(params)
+            document = CNPJ.new(params[:document]).stripped
+            response = fetch_company_data(document)
+
+            return Failure(I18n.t("api.auth.company_not_found")) if response.blank?
+
+            status = response.dig("estabelecimento", "situacao_cadastral")
+            return Failure(I18n.t("api.auth.company_status", status: status)) unless status == "Ativa"
+
+            Success(response)
+          end
+
+          def method_name
+            
           end
 
           def output(result)
             response = Presenter.call(result)
             return Success([ I18n.t("api.auth.company_found"), response ]) if response
 
-            Failure(I18n.t("api.auth.company_error_found"))
+            Failure(I18n.t("api.auth.company_not_found"))
           end
 
           private
-
-          def not_found?(status)
-            status.nil? || (status >= 400 && status < 500)
-          end
 
           def fetch_company_data(document)
             Util.company_data(document)

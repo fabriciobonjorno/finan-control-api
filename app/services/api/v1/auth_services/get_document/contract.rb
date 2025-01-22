@@ -6,11 +6,11 @@ module Api
       module GetDocument
         class Contract < ApplicationContract
           params do
-            required(:document).filled(:string)
+            required(:document).filled(:str?)
           end
 
           rule(:document) do
-            key.failure(I18n.t("api.auth.document")) unless CPF.valid?(values[:document]) || CNPJ.valid?(values[:document])
+            key.failure(I18n.t("api.auth.document")) unless CNPJ.valid?(values[:document])
           end
         end
       end

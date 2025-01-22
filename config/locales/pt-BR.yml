@@ -13,6 +13,8 @@ pt-BR:
   api:
     auth:
       document: 'O documento fornecido é inválido ou está incompleto!'
-      company_status: 'Empresa %{status}: não é possível prosseguir com o cadastro'
-      company_not_found: 'Não foi possível buscar dados da empresa'
-      company_found: 'Dados da empresa'
+      company_status: 'Empresa %{status}: não é possível prosseguir com o cadastro!'
+      company_error_found: 'Não foi possível buscar dados da empresa!'
+      company_not_found: 'Empresa não encontrada!'
+      company_found: 'Dados da empresa!'
+      password_confirmation: 'A confirmação de senha não confere!'

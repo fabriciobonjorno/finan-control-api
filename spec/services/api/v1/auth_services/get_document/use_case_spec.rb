@@ -30,7 +30,7 @@ RSpec.describe Api::V1::AuthServices::GetDocument::UseCase, type: :service do
         result = subject.call(params)
 
         expect(result).to be_success
-        expect(result.success).to include('Dados da empresa')
+        expect(result.success).to include('Dados da empresa!')
       end
 
       it 'returns failure if company is inactive' do
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::AuthServices::GetDocument::UseCase, type: :service do
         result = subject.call(params)
 
         expect(result).to be_failure
-        expect(result.failure).to eq("Empresa Inativa: não é possível prosseguir com o cadastro")
+        expect(result.failure).to eq("Empresa Inativa: não é possível prosseguir com o cadastro!")
       end
 
       it 'returns failure if company data is not found' do
@@ -52,7 +52,20 @@ RSpec.describe Api::V1::AuthServices::GetDocument::UseCase, type: :service do
         result = subject.call(params)
 
         expect(result).to be_failure
-        expect(result.failure).to eq("Não foi possível buscar dados da empresa")
+        expect(result.failure).to eq("Não foi possível buscar dados da empresa!")
+      end
+
+      it 'returns failure if status is nil and company not found' do
+        allow(Util).to receive(:company_data).and_return({
+          "status" => 404,
+          "estabelecimento" => { "situacao_cadastral" => nil }
+        })
+
+        params = ActionController::Parameters.new(valid_params)
+        result = subject.call(params)
+
+        expect(result).to be_failure
+        expect(result.failure).to eq("Empresa não encontrada!")
       end
     end
 
