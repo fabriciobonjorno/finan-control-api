@@ -24,6 +24,7 @@ class Company < ApplicationRecord
   enum :business_type, %i[EI MEI EPP EIRELI LTDA SA_OPEN SA_CLOSED]
 
   belongs_to :customer
+  has_many :roles, dependent: :restrict_with_error
 
   private
 

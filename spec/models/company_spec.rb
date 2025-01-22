@@ -7,6 +7,7 @@ RSpec.describe Company, type: :model do
 
   describe "associations" do
     it { should belong_to(:customer) }
+    it { should have_many(:roles).dependent(:restrict_with_error) }
   end
 
 
