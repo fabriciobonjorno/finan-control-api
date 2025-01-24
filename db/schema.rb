@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_22_005154) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_22_010507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -101,6 +101,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_005154) do
     t.index ["status"], name: "index_roles_on_status"
   end
 
+  create_table "user_company_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "company_id", null: false
+    t.uuid "role_id", null: false
+    t.boolean "current", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_user_company_roles_on_company_id"
+    t.index ["current"], name: "index_user_company_roles_on_current"
+    t.index ["role_id"], name: "index_user_company_roles_on_role_id"
+    t.index ["user_id"], name: "index_user_company_roles_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -163,5 +176,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_005154) do
   add_foreign_key "companies", "customers"
   add_foreign_key "customers", "plans"
   add_foreign_key "roles", "companies"
+  add_foreign_key "user_company_roles", "companies"
+  add_foreign_key "user_company_roles", "roles"
+  add_foreign_key "user_company_roles", "users"
   add_foreign_key "users", "customers"
 end

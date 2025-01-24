@@ -25,6 +25,9 @@ class User < ApplicationRecord
   enum :partner_type, %i[partner proxyholder legal_representative other]
 
   belongs_to :customer
+  has_many :user_company_roles, dependent: :restrict_with_error
+  has_many :companies, through: :user_company_roles
+  has_many :roles, through: :user_company_roles
 
   def generate_confirmation_token
     update_columns(confirmation_token: SecureRandom.urlsafe_base64, confirmation_sent_at: Time.now)

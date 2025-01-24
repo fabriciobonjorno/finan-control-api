@@ -25,6 +25,8 @@ class Company < ApplicationRecord
 
   belongs_to :customer
   has_many :roles, dependent: :restrict_with_error
+  has_many :user_company_roles, dependent: :restrict_with_error
+  has_many :users, through: :user_company_roles
 
   private
 

@@ -4,12 +4,10 @@ pt-BR:
     messages:
       invalid: 'é inválido'
       record_invalid: 'A validação falhou: %{errors}'
+      blank: "não pode ficar em branco"
       restrict_dependent_destroy:
         has_one: 'Não é possível excluir o registro pois existe um %{record} dependente'
         has_many: 'Não é possível excluir o registro pois existem %{record} dependentes'
-  attributes:
-    user:
-      email: 'E-mail'
   api:
     auth:
       document: 'O documento fornecido é inválido ou está incompleto!'
