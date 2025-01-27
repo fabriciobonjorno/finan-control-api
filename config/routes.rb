@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :auth do
         post :get_document
+        post :onboarding
+        post :confirmation
       end
     end
   end

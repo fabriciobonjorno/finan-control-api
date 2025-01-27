@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe Api::V1::AuthServices::GetDocument::Contract, type: :contract do
   subject { described_class.new }
 

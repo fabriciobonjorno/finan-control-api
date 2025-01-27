@@ -14,3 +14,7 @@ pt-BR:
       company_status: 'Empresa %{status}: não é possível prosseguir com o cadastro'
       company_not_found: 'Não foi possível buscar dados da empresa'
       company_found: 'Dados da empresa'
+      document_already_registered: 'Documento já em uso!'
+      email_already_registered: 'Email já em uso!'
+      password_confirmation: 'Senhas não conferem!'
+      company_created: 'Empresa criada com sucesso! Em breve você receberá um email de confirmação.'

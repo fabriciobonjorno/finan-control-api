@@ -24,4 +24,9 @@ module Util
     Rails.logger.error("Erro ao buscar dados da empresa: #{e.message}")
     nil
   end
+
+  def self.normalize_customer_name(document, legal_name)
+    document = document.gsub(/\D/, "").strip
+    "#{document}_#{legal_name}".parameterize(separator: "_")
+  end
 end

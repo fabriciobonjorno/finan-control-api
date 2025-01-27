@@ -1,0 +1,16 @@
+<h2>Bem-vindo(a) ao FinanControl!</h2>
+<p>Estamos felizes por ter você conosco! O FinanControl é o sistema que vai transformar a forma como sua empresa gerencia as despesas corporativas.</p>
+<p>Com nossas ferramentas, você poderá:</p>
+<ul>
+  <li>Monitorar os gastos da sua empresa com precisão.</li>
+  <li>Controlar despesas por segmento e gerenciar saldos.</li>
+  <li>Gerar relatórios claros para decisões mais assertivas.</li>
+</ul>
+<p>👉 <strong>O que fazer agora?</strong></p>
+<p>1. Confirme sua conta clicando no botão abaixo.<br>2. Explore todas as funcionalidades do FinanControl!</p>
+<div class="button-container">
+  <%= link_to 'Confirmar minha conta', "#{ENV['BASE_URL']}/api/v1/auth/confirmation?confirmation_token=#{@user.confirmation_token}", target: "_blank" %>
+</div>
+<p>Obrigado por escolher o FinanControl! Com nossa solução de gestão de despesas corporativas, 
+  ajudaremos sua empresa a otimizar os custos operacionais. 
+  Vamos juntos transformar sua gestão financeira!</p>

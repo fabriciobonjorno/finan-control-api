@@ -1,6 +1,12 @@
 # Changelog
 
 ### Feature
+- Onboarding flow
+- Send confirmation email
+
+## Version [0.1.0.beta] - 2025-01-27
+
+### Feature
 - UserCompanyRole model and tests
 
 ## Version [0.1.0.beta] - 2025-01-24

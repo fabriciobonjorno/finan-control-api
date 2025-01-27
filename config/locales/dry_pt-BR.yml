@@ -5,3 +5,29 @@ pt-BR:
         document:
           key?: 'Documento é obrigatório'
           filled?: 'Documento não pode ser vazio'
+        legal_name:
+          key?: 'Razão Social é obrigatório'
+          filled?: 'Razão Social não pode ser vazio'
+        trade_name:
+          key?: 'Nome Fantasia é obrigatório'
+          filled?: 'Nome Fantasia não pode ser vazio'
+        first_name:
+          key?: 'Nome é obrigatório'
+          filled?: 'Nome não pode ser vazio'
+        last_name:
+          key?: 'Sobrenome é obrigatório'
+          filled?: 'Sobrenome não pode ser vazio'
+        email:
+          key?: 'E-mail é obrigatório'
+          filled?: 'E-mail não pode ser vazio'
+          format?: 'E-mail inválido'
+        password:
+          key?: 'Senha é obrigatório'
+          filled?: 'Senha não pode ser vazio'
+          format?: 'Senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula, um número e um caractere especial.'
+        password_confirmation:
+          key?: 'Confirmação de senha é obrigatório'
+          filled?: 'Confirmação de senha não pode ser vazio'
+        plan_id: 
+          key?: 'Plano é obrigatório'
+          filled?: 'Plano não pode ser vazio'

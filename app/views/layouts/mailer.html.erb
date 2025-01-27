@@ -1,13 +1,140 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Bem-vindo ao FinanControl - Controle de Despesas Corporativas e Gestão Financeira</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F7F7F7;
+    }
 
-  <body>
-    <%= yield %>
-  </body>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #F7F7F7;
+    }
+
+    .header img {
+      margin-top: 10px;
+      max-width: 270px;
+      height: auto;
+    }
+
+    .content {
+      padding: 32px;
+    }
+
+    .content h2 {
+      color: #404040;
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .content p {
+      color: #666666;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .button-container {
+      text-align: center;
+      margin: 24px 0;
+    }
+
+    .button-container a {
+      display: inline-block;
+      background-color: #248435;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      font-size: 17px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0;
+      font-size: 13px;
+      color: #666666;
+      line-height: 1.5;
+    }
+
+    .footer a {
+      color: #0f90ba;
+      text-decoration: none;
+    }
+
+    .disclaimer-container {
+      max-width: 600px;
+      margin: 20px auto 0;
+      text-align: center;
+    }
+
+    .disclaimer {
+      font-size: 13px;
+      color: #666666;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .disclaimer .email-footer {
+      color: #ff914d;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <table class="container">
+    <tr>
+      <td class="header">
+        <a href="https://www.financontrol.com">
+           <img src="<%= "#{ENV['BASE_URL']}/images/logo.svg" %>" alt="Logo Financontrol">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td class="content">
+        <%= yield %>
+        <p>Se precisar de ajuda, nossa equipe está à disposição para apoiar você no que for necessário.</p>
+      </td>
+    </tr>
+  </table>
+  <div class="disclaimer-container">
+    <table class="disclaimer">
+      <tr>
+        <td>
+          <p>Este e-mail foi enviado para <span class="email-footer"><%= @email %></span></p>
+          <p>FinanControl - Controle de Despesas Corporativas e Gestão Financeira</p>
+          <p>&copy; <%= Time.new.year %> FinanControl. Todos os direitos reservados.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
 </html>

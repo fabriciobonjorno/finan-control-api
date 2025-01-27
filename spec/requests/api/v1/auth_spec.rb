@@ -109,4 +109,42 @@ RSpec.describe Api::V1::AuthController, type: :controller do
       end
     end
   end
+
+  describe 'POST #onboarding' do
+  let(:valid_params) { { document: '12345678000195', email: 'joao.silva@example.com', password: 'Senha@123', password_confirmation: 'Senha@123', plan_id: '1' } }
+  let(:service) { Api::V1::AuthServices::Onboarding::UseCase }
+
+  context 'when the service succeeds' do
+    it 'returns 200 with the correct response' do
+      allow(service).to receive(:call).and_yield(
+        MockResult.new(
+          success: ->(block) { block.call(I18n.t("api.auth.company_created"), { key: 'value' }) }
+        )
+      )
+
+      post :onboarding, params: valid_params
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)).to eq({
+        "message" => I18n.t("api.auth.company_created"),
+        "data" => { "key" => "value" }
+      })
+    end
+  end
+
+  context 'when validation fails' do
+    it 'returns 400 with the error message' do
+      allow(service).to receive(:call).and_yield(
+        MockResult.new(
+          failure: ->(step, block) { step == :validate_params && block.call("Parâmetros inválidos") }
+        )
+      )
+
+      post :onboarding, params: { document: '123' }
+      expect(response).to have_http_status(:bad_request)
+      expect(JSON.parse(response.body)).to eq({
+        "message" => "Parâmetros inválidos"
+      })
+    end
+  end
+end
 end
